@@ -472,9 +472,42 @@
   </svg>
 
 </div>
+
+<h2>TOGGLE EXAMPLE</h2>
+<button (click)="toggle()" id="bt">{{buttonName}}</button>
+
+
+<ng-container *ngIf="show">
+  <h2>HEADINGS</h2>
+  <ul>
+    <li *ngFor="let heading of headings ">{{ heading }}</li>
+  </ul>
+
+</ng-container>
+
 <courses />
 
-<course />
+<course [author]="author"  (newParentData)="addHeading($any($event))" />
+
+<br><br><br><br><br><br>
+<h2>One way data binding(view to component through event)</h2>
+<input type="text" [value]="eventBindingTitle" (keyup.enter)="onEnter($event)" >   
+{{ eventBindingTitle }}
+<br><br>
+<p>Above code showing one way binding. This can be improved by using two way bindin which will allow both directions</p>
+
+<br><br><br><br>
+
+<h2>Two way data binding(view to component through event)</h2>
+<input type="text" [(ngModel)]="twoWayBindingTitle" [ngStyle]="{'width':'400px'}"  style="width:40px;">
+{{ twoWayBindingTitle }}
+
+<br><br><br><br>
+
+<h2>Data from Test Service</h2>
+{{ _testService.myData }}
+
+<br><br><br><br>
 
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 <!-- * * * * * * * * * * * The content above * * * * * * * * * * * -->
@@ -483,5 +516,11 @@
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 <!-- * * * * * * * * * * End of Placeholder * * * * * * * * * * * -->
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+
+
+<h1>NgRX</h1>
+<app-counterbutton></app-counterbutton>
+<app-counterdisplay></app-counterdisplay>
+
 
 <router-outlet></router-outlet>

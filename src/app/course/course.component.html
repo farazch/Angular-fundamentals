@@ -1,5 +1,17 @@
+
+<br><br>
+<h2>COURSE component: Author: {{ author }}</h2>
 <p>{{ courseTitle}} works!</p>
 
 <ul>
     <li *ngFor="let topic of courseContent">{{ topic }}</li>
 </ul>
+
+
+
+<label for="heading-input">Add a course:</label>
+<input type="text" id="heading-input" #newParentData>
+<button type="button" (click)="newHeading(newParentData.value)">Add</button>
+
+<h3>Sibling component showing same data::::::{{ counterDisplay  }}</h3>
+{{ _testService.myData }}

@@ -1,5 +1,7 @@
 import { Component } from "@angular/core";
 import { CoursesService } from "./courses.service";
+import { TestService } from "./test.service";
+
 
 @Component({
 
@@ -15,10 +17,14 @@ import { CoursesService } from "./courses.service";
 export class CoursesComponent {
     title= "List of Titles";
     courses;
+
     
-    constructor(service:CoursesService){
+    
+    constructor(service:CoursesService,private _testService: TestService){
         //let service = new CoursesService();
-        this.courses = service.getCourses();  
+        this.courses = service.getCourses(); 
+        
+        this._testService.myData = "Data from test service";
     }
 
 }
