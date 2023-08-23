@@ -18,6 +18,8 @@ import { counterReducer } from './shared/store/counter.reducer';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MaterialModel } from './Material.Module';
+import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveformComponent } from './reactiveform/reactiveform.component';
 
 
 @NgModule({
@@ -27,6 +29,7 @@ import { MaterialModel } from './Material.Module';
     CourseComponent,
     CounterbuttonComponent,
     CounterdisplayComponent,
+    ReactiveformComponent,
 
   ],
   imports: [
@@ -37,7 +40,8 @@ import { MaterialModel } from './Material.Module';
       counter:counterReducer
     }),
     BrowserAnimationsModule,
-    MaterialModel
+    MaterialModel,
+    ReactiveFormsModule
   ],
   providers: [
     CoursesService,

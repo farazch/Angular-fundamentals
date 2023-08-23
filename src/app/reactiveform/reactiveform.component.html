@@ -1,0 +1,27 @@
+<p>Reactive Form</p>
+
+<form class="form" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+
+    <div class="field">
+        <mat-label >username</mat-label>
+        <mat-form-field><input matInput type="text" formControlName="username" /></mat-form-field> 
+    </div>
+
+    <div class="field">
+        <mat-label>email</mat-label>
+        <mat-form-field><input matInput type="text" formControlName="email" ></mat-form-field>
+    </div>
+
+    <div class="field">
+        <mat-label>Password</mat-label>
+        <mat-form-field><input matInput type="text" formControlName="password" ></mat-form-field>
+    </div>
+
+    <div>
+        <button type="submit" class="button">Register</button>
+    </div>    
+
+    <br><br><br><br>
+</form>
+
+
