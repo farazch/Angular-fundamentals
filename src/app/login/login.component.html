@@ -1,0 +1,16 @@
+<h2>Login Here</h2>
+
+<div>
+    <label for="">User ID</label>
+    <input type="text" #txtuserid>
+</div>
+
+
+<div>
+    <label for="">Password</label>
+    <input type="text" #txtpassword>
+</div>
+
+<div>
+    <button (click)="login(txtuserid.value,txtpassword.value)">login</button>
+</div>

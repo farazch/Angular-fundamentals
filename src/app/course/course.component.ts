@@ -4,6 +4,8 @@ import { Input,Output,EventEmitter } from "@angular/core";
 import { TestService } from '../test.service';
 import { Store } from '@ngrx/store';
 
+import { HttpClient } from '@angular/common/http';
+
 @Component({
   selector: 'course',
   templateUrl: './course.component.html',
@@ -12,13 +14,17 @@ import { Store } from '@ngrx/store';
 export class CourseComponent implements OnInit {
   courseTitle = "OOPS";
   courseContent;
+  storageLoggedin:any = "";
 
   @Input() author = "";
   @Output() newParentData = new EventEmitter<string>();
 
-  constructor(courses:CourseService,public _testService: TestService,private store:Store<{counter:{counter:number}}>){
+  constructor(private http: HttpClient,courses:CourseService,public _testService: TestService,private store:Store<{counter:{counter:number}}>){
     //let courseContent = courses.getCourseTopics();
     this.courseContent = courses.getCourseTopics();  
+
+    this.storageLoggedin = localStorage.getItem("isloggedin");
+    //console.log("In course component: ",localStorage.getItem("isloggedin"));
   }
 
   counterDisplay!: number;
@@ -28,13 +34,23 @@ export class CourseComponent implements OnInit {
 
     })
   }
-
+  
 
   newHeading(value:string){
     this.newParentData.emit(value);
   }
 
+  makeRequest() {
 
+    console.log("Her");
+
+    
+    //https://reqres.in/api/users
+
+    this.http.get('https://jsonplaceholder.typicode.com/users').subscribe((response) => {
+      console.log('Response:', response);
+    });
+  }
 
 
 }

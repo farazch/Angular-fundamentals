@@ -1,6 +1,6 @@
 
 <br><br>
-<h2>COURSE component: Author: {{ author }}</h2>
+<h2  [ngStyle]="{'color':'red'}">COURSE component: Author: {{ author }}:{{ storageLoggedin }}</h2>
 <p>{{ courseTitle}} works!</p>
 
 <ul>
@@ -15,3 +15,6 @@
 
 <h3>Sibling component showing same data::::::{{ counterDisplay  }}</h3>
 {{ _testService.myData }}
+<br><br>
+<button (click)="makeRequest()">Get Http Data</button>
+<br><br>

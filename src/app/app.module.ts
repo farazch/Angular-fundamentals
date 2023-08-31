@@ -20,7 +20,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModel } from './Material.Module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ReactiveformComponent } from './reactiveform/reactiveform.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { HomeComponent } from './home/home.component';
+import { LoginComponent } from './login/login.component';
 
+
+import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -30,12 +37,17 @@ import { ReactiveformComponent } from './reactiveform/reactiveform.component';
     CounterbuttonComponent,
     CounterdisplayComponent,
     ReactiveformComponent,
+    NavbarComponent,
+    HomeComponent,
+    LoginComponent,
 
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    HttpClientModule,
+    
     StoreModule.forRoot({
       counter:counterReducer
     }),
@@ -45,7 +57,8 @@ import { ReactiveformComponent } from './reactiveform/reactiveform.component';
   ],
   providers: [
     CoursesService,
-    CourseService
+    CourseService,
+    {provide: HTTP_INTERCEPTORS,useClass:AuthInterceptor,multi:true}
   ], // we need to register dependencies that components in this modules are dependant upon
   bootstrap: [AppComponent]
 })

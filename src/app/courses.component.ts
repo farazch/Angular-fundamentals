@@ -2,6 +2,7 @@ import { Component } from "@angular/core";
 import { CoursesService } from "./courses.service";
 import { TestService } from "./test.service";
 
+import { HttpClient } from '@angular/common/http';
 
 @Component({
 
@@ -26,5 +27,11 @@ export class CoursesComponent {
         
         this._testService.myData = "Data from test service";
     }
+
+    
+
+
+
+    
 
 }

@@ -325,13 +325,9 @@
     </a>
 </div>
 
-
-
-
 <div class="content" role="main">
 
-
-  <app-navbar></app-navbar>
+<app-navbar></app-navbar>
 
 
   <!-- Highlight Card -->
@@ -492,9 +488,10 @@
 
 </ng-container>
 
-<!--
+<courses />
+
 <course [author]="author"  (newParentData)="addHeading($any($event))" />
--->
+
 <br><br><br><br><br><br>
 <h2>One way data binding(view to component through event)</h2>
 <input type="text" [value]="eventBindingTitle" (keyup.enter)="onEnter($event)" >   
@@ -522,7 +519,7 @@
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 <!-- * * * * * * * * * * End of Placeholder * * * * * * * * * * * -->
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<course></course>
+
 
 <h1>NgRX</h1>
 <app-counterbutton></app-counterbutton>
@@ -534,5 +531,3 @@
 
 
 <router-outlet></router-outlet>
-
-
