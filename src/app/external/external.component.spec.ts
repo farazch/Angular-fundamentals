@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CourseComponent } from './course.component';
+import { ExternalComponent } from './external.component';
 
-xdescribe('CourseComponent', () => {
-  let component: CourseComponent;
-  let fixture: ComponentFixture<CourseComponent>;
+describe('ExternalComponent', () => {
+  let component: ExternalComponent;
+  let fixture: ComponentFixture<ExternalComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [CourseComponent]
+      declarations: [ExternalComponent]
     });
-    fixture = TestBed.createComponent(CourseComponent);
+    fixture = TestBed.createComponent(ExternalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

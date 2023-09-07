@@ -6,6 +6,7 @@ import { HomeComponent } from './home/home.component';
 import { CourseComponent } from './course/course.component';
 import { authGuard } from './auth.guard';
 import { LoginComponent } from './login/login.component';
+import { ExternalComponent } from './external/external.component';
 
 
 
@@ -15,6 +16,8 @@ const routes: Routes = [
   
   {path:'Course',component: CourseComponent,canActivate:[authGuard]},
   {path:'Login',component: LoginComponent},
+
+  {path:'External',component: ExternalComponent},
 
   {path:'Home/:id',component: HomeComponent,
   children: [    // nested routes

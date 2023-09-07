@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
-import { CourseService } from './courseService';
+import { CourseService } from './course.service';
 import { Input,Output,EventEmitter } from "@angular/core";
 import { TestService } from '../test.service';
 import { Store } from '@ngrx/store';
@@ -15,6 +15,8 @@ export class CourseComponent implements OnInit {
   courseTitle = "OOPS";
   courseContent;
   storageLoggedin:any = "";
+
+  serverdata : any = '';
 
   @Input() author = "";
   @Output() newParentData = new EventEmitter<string>();
@@ -34,21 +36,19 @@ export class CourseComponent implements OnInit {
 
     })
   }
-  
 
   newHeading(value:string){
     this.newParentData.emit(value);
   }
 
   makeRequest() {
-
     console.log("Her");
 
-    
     //https://reqres.in/api/users
 
     this.http.get('https://jsonplaceholder.typicode.com/users').subscribe((response) => {
       console.log('Response:', response);
+      this.serverdata = response;
     });
   }
 

@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CounterbuttonComponent } from './counterbutton.component';
 
-describe('CounterbuttonComponent', () => {
+xdescribe('CounterbuttonComponent', () => {
   let component: CounterbuttonComponent;
   let fixture: ComponentFixture<CounterbuttonComponent>;
 

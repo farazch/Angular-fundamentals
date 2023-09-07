@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { CoursesComponent } from './courses.component';
 import { CourseComponent } from './course/course.component';
 import { CoursesService } from './courses.service';
-import { CourseService } from './course/courseService';
+import { CourseService } from './course/course.service';
 import { FormsModule } from '@angular/forms';
 
 // NgRx
@@ -28,6 +28,7 @@ import { LoginComponent } from './login/login.component';
 import { HttpClientModule } from '@angular/common/http';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './auth.interceptor';
+import { ExternalComponent } from './external/external.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { AuthInterceptor } from './auth.interceptor';
     NavbarComponent,
     HomeComponent,
     LoginComponent,
+    ExternalComponent,
 
   ],
   imports: [

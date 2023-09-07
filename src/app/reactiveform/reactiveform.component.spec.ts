@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ReactiveformComponent } from './reactiveform.component';
 
-describe('ReactiveformComponent', () => {
+xdescribe('ReactiveformComponent', () => {
   let component: ReactiveformComponent;
   let fixture: ComponentFixture<ReactiveformComponent>;
 

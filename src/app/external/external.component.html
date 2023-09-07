@@ -1,0 +1,13 @@
+
+<h3>List of Users</h3>
+          <pre>{{ userData | json }}</pre>
+          <table>
+            <tr>
+                <td>GENDER</td>
+                <td>EMAIL</td>
+            </tr>    
+            <tr *ngFor="let u of user" >
+              <td>{{ u.name }}</td>
+              <td>{{ u.email }}</td>
+            </tr>
+          </table>    

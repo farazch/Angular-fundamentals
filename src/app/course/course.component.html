@@ -1,6 +1,6 @@
-
+<div [ngStyle]="{'margin-bottom':'400px'}">
 <br><br>
-<h2  [ngStyle]="{'color':'red'}">COURSE component: Author: {{ author }}:{{ storageLoggedin }}</h2>
+<h2 [ngStyle]="{'color':'red'}">COURSE component: Author: {{ author }}:{{ storageLoggedin }}</h2>
 <p>{{ courseTitle}} works!</p>
 
 <ul>
@@ -17,4 +17,9 @@
 {{ _testService.myData }}
 <br><br>
 <button (click)="makeRequest()">Get Http Data</button>
-<br><br>
+<br /><br />
+
+<ul>
+    <li *ngFor="let row of serverdata">{{ row.name }}</li>
+</ul>
+</div>
