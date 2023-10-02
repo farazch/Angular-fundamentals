@@ -19,6 +19,8 @@ const routes: Routes = [
 
   {path:'External',component: ExternalComponent},
 
+  {path:'External/:id',component: ExternalComponent},
+
   {path:'Home/:id',component: HomeComponent,
   children: [    // nested routes
     {path:'',redirectTo:'LoginComponent',pathMatch:'full'}, // default path

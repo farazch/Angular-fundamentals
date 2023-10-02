@@ -6,6 +6,8 @@ import { filter } from 'rxjs';
 import { map } from 'rxjs';
 import { Observable } from 'rxjs';
 import { of } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
+import { ParamMap } from '@angular/router';
 
 // if i user api endpoint as API_URL in service then it need to b accessed with userData.results
 /* if i user api endpoint as https://jsonplaceholder.typicode.com/users or any other in service 
@@ -30,25 +32,35 @@ export class ExternalComponent {
 
   public testUser : User[] = [];
 
+  public paramId : string | null = '';
+
+  
+  //usero : Observable<User[]>;
+
  
-  constructor(public userService: ExternalService) { }
+  constructor(public userService: ExternalService,public route: ActivatedRoute) { }
 
   ngOnInit(): void {
 
-
-    
-// below working
+    // below working
     this.userService.getUser()
-    .subscribe(
-      (dataa) => {
-        this.user = dataa;
-     },
-     error => alert(JSON.stringify(error))
-    );
+      .subscribe(
+        (dataa) => {
+          this.user = dataa;
+        },
+        error => alert(JSON.stringify(error))
+      );
+
+      this.paramId = this.route.snapshot.paramMap.get('id');
+      
   }
 
 
+//  getusreo(){
+//    this.usero = this.userService.getUserO();
+//  }
 
+  
 
 
   returnNumbersObservable(): Observable<number> {
