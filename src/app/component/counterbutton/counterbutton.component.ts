@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
 import { increment,decrement,reset, incrementten } from 'src/app/shared/store/counter.actions';
+import { isloadingSelector } from 'src/app/shared/store/selectors';
+import { Observable } from 'rxjs';
+import { AppStateInterface } from 'src/app/types/appStates.interface';
 
 @Component({
   selector: 'app-counterbutton',
@@ -9,7 +12,13 @@ import { increment,decrement,reset, incrementten } from 'src/app/shared/store/co
 })
 export class CounterbuttonComponent {
 
-  constructor(private store:Store<{counter:{counter:number}}> ){}
+  isLoading$: Observable<boolean>;
+
+  constructor(private store:Store<AppStateInterface> ){
+      
+    this.isLoading$ = this.store.pipe(select(isloadingSelector));
+
+  }
 
 
   OnIncrement(){

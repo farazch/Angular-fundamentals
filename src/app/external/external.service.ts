@@ -3,14 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 //import { UsersResult } from '../interfaces/user';
 import { User } from '../interfaces/user';
-import { API_URL } from '../interfaces/constants';
-import { of } from 'rxjs';
-import { Pipe } from '@angular/core';
-import { map } from 'rxjs';
-import { take } from 'rxjs';
-import { delay } from 'rxjs';
-import { filter } from 'rxjs';
-import { of as observableOf } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root'

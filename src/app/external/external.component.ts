@@ -7,7 +7,7 @@ import { map } from 'rxjs';
 import { Observable } from 'rxjs';
 import { of } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
-import { ParamMap } from '@angular/router';
+
 
 // if i user api endpoint as API_URL in service then it need to b accessed with userData.results
 /* if i user api endpoint as https://jsonplaceholder.typicode.com/users or any other in service 

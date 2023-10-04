@@ -1,6 +1,31 @@
-import { createReducer,on } from "@ngrx/store";
+import { createFeature, createReducer,on } from "@ngrx/store";
 import { increment,decrement,reset,incrementten } from "./counter.actions";
-import { initialState } from "./counter.state";
+
+// I can get initial state from below file. Or i can get use interface for initial state
+//import { initialState } from "./counter.state";
+
+import { counterStateInterface } from "src/app/types/counterState.interface";
+
+
+export const initialState:counterStateInterface = {
+    counter:0,
+    loading:true,
+    
+};
+
+/*
+const counterFeature = createFeature({
+    name: 'count',
+    reducer: counterReducer
+
+});
+
+export const {
+    name: postCounterKey,
+    reducer: postReducer,
+} = counterFeature 
+*/
+
 
 const _counterReducer = createReducer(initialState,
     on(increment, (state) => {

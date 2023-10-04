@@ -30,6 +30,8 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './auth.interceptor';
 import { ExternalComponent } from './external/external.component';
 
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -53,6 +55,14 @@ import { ExternalComponent } from './external/external.component';
     StoreModule.forRoot({
       counter:counterReducer
     }),
+
+
+    StoreDevtoolsModule.instrument({
+      maxAge: 25, // Retains last 25 states
+      
+    }),
+
+
     BrowserAnimationsModule,
     MaterialModel,
     ReactiveFormsModule
