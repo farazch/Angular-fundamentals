@@ -8,7 +8,7 @@ import { map } from 'rxjs';
 import { Observable,mergeMap } from 'rxjs';
 import { from } from 'rxjs';
 import { interval } from 'rxjs';
-
+import { Router,ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -49,7 +49,10 @@ export class AppComponent implements OnInit,AfterViewInit {
   */
 
 
-  constructor(public _testService: TestService) {
+  constructor(public _testService: TestService, private router: Router) {
+
+
+    
     localStorage.setItem("isloggedin","false");
     let srcObservable= of(1,2,3,4)
     let innerObservable= of('A','B','C','D')
@@ -102,6 +105,8 @@ export class AppComponent implements OnInit,AfterViewInit {
 
   ngOnInit(): void {
 
+    //this.router.navigate(['/Course']);
+
     data$: Observable<number>;
     data$ : of(7,8);
 
@@ -135,8 +140,6 @@ export class AppComponent implements OnInit,AfterViewInit {
   ngAfterViewInit(): void {
     console.log("In ngoninit");
     this.execute();
-    
-
   }
 
 

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Store, select } from '@ngrx/store';
-import { increment,decrement,reset, incrementten } from 'src/app/shared/store/counter.actions';
+import { increment,decrement,reset, incrementtenn } from 'src/app/shared/store/counter.actions';
 import { isloadingSelector } from 'src/app/shared/store/selectors';
 import { Observable } from 'rxjs';
 import { AppStateInterface } from 'src/app/types/appStates.interface';
@@ -37,7 +37,7 @@ export class CounterbuttonComponent {
   }
 
   OnIncrementTen() {
-    this.store.dispatch(incrementten());
+    this.store.dispatch(incrementtenn({value:30}));
 
   }
 

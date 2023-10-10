@@ -1,5 +1,5 @@
 import { createFeature, createReducer,on } from "@ngrx/store";
-import { increment,decrement,reset,incrementten } from "./counter.actions";
+import { increment,decrement,reset,incrementtenn } from "./counter.actions";
 
 // I can get initial state from below file. Or i can get use interface for initial state
 //import { initialState } from "./counter.state";
@@ -46,10 +46,10 @@ const _counterReducer = createReducer(initialState,
             counter:0 
         };
     }),
-    on(incrementten,(state)=>{
+    on(incrementtenn,(state,action)=>{
         return{
             ...state,
-            counter:state.counter+10
+            counter:state.counter+10+action.value
         };
     }),
     
