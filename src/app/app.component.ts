@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { TestService } from './test.service';
 import { firstValueFrom, of } from 'rxjs';
 import { Subscriber } from 'rxjs';
@@ -9,22 +9,72 @@ import { Observable,mergeMap } from 'rxjs';
 import { from } from 'rxjs';
 import { interval } from 'rxjs';
 import { Router,ActivatedRoute } from '@angular/router';
+import { FormControl } from '@angular/forms';
+
+import { PropertyEnumTs } from './property.enum.ts';
+
+//import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import {MatDialog} from '@angular/material/dialog';
+//import { MatDialogRef } from '@angular/material/dialog';
+
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+
+
+import { OverlayRef, ScrollStrategy, ScrollStrategyOptions } from '@angular/cdk/overlay';
+
+interface Styles {
+  fontSize: string;
+  color: string;
+  decoration?:string|'kk';
+  hover?:boolean;
+}
+
+// interface TEComponentCheckBox {
+//   id:{display:string};
+// }
+
+export interface TEComponentCheckBox {
+  display: string;
+}
+
+export interface OfferInterface {
+  [key: string]: TEComponentCheckBox;
+}
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit,AfterViewInit {
+  scrollStrategy: ScrollStrategy;
+  dialogRef: any;
+
+  @Input() isVisible: boolean = false;
+  //@ViewChild("testAddress",{static:false}) testAddress:ElementRef;
+  //@ViewChild('testdataref',{static:false}) testdataref: TemplateRef<any>);
+  @ViewChild('testdata', { static: false }) templateRef!: TemplateRef<any>;
+
+  // @ViewChild('myTemplate') myTemplate: TemplateRef<any>;
+
+  currentStatus: PropertyEnumTs = PropertyEnumTs.House;
+  styles: Styles;
+
   title = 'hello-world';
   author = 'faraz';
 
+  color = 'orange';
+  
   eventBindingTitle : string = "Sample Title";
   twoWayBindingTitle : string = "Two way binding title to explain the term";
+
+  src = "https://picsum.photos/536/354";
 
   headings = ['hh1','hh2','hh3'];
 
   public show:boolean = true;
   public buttonName:any = 'Hide';
+
 
   // Example 1 
   ff$ = of(1,4,5,6).pipe(filter((item) => item>4)).subscribe(out => console.log("OUT:",out)); 
@@ -32,8 +82,10 @@ export class AppComponent implements OnInit,AfterViewInit {
   // Example 2
   ff2$ = from([11,14,15,16]).pipe(filter((item) => item > 10)).subscribe(out => console.log("OUT:",out)); 
 
+html:string = "aween baween maween taween";
 
-
+// htmlString = '<p>This is <strong>safe</strong> HTML content.</p>';
+// outputsafe:string = '';
 
 
  // Example 3
@@ -47,11 +99,39 @@ export class AppComponent implements OnInit,AfterViewInit {
 
   })
   */
+  textFieldControl = new FormControl();
+
+   offer: OfferInterface = {
+    '1-29P': {
+      display:"Internet"
+    }}
+
+  constructor(
+    public _testService: TestService, 
+    private router: Router,
+    public dialog:MatDialog,
+    private readonly sso: ScrollStrategyOptions,
+    public sanitizer: DomSanitizer
+    
+    ) 
+    {
+    this.scrollStrategy = this.sso.noop();
+    enum Answer {
+      No = "No",
+      Yes = "Yes",
+    }
+
+    this.styles = {
+      fontSize: '14px',
+      color: 'green',
+      decoration:'underline',
+      hover:true,
+    };
 
 
-  constructor(public _testService: TestService, private router: Router) {
+    
 
-
+    const userStatus = Answer.No;
     
     localStorage.setItem("isloggedin","false");
     let srcObservable= of(1,2,3,4)
@@ -66,45 +146,69 @@ export class AppComponent implements OnInit,AfterViewInit {
     .subscribe(ret=> {
       console.log('Recd ' + ret);
     })
-    // output = 
-    /*
-    Source value 1
-    starting new observable
-    Recd A
-    Recd B
-    Recd C
-    Recd D
-    Source value 2
-    starting new observable
-    Recd A
-    Recd B
-    Recd C
-    Recd D
-    Source value 3
-    Recd A
-    Recd B
-    Recd C
-    Recd D
-    Source value 4
-
-    */
-
+   
   }
+   closeDialog(res:any): void {
+    console.log("hhh");
+    this.dialogRef.close();
+// this.dialogRef.close();
+  //   //this.dialog.closeAll();
+  //   this.dialogRef.close('Dialog closed with result');
+   }
+
+   //var safeHtml =  this.sanitizer.bypassSecurityTrustHtml(this.htmlString);   
+
+  openDialog(): void { 
+    
+    // Example 1 with scrollStrategy
+    // const dialogRef = this.dialog.open(this.templateRef, {scrollStrategy: this.scrollStrategy 
+    // });
+    
+
+    this.dialogRef = this.dialog.open(this.templateRef, {
+     
+      scrollStrategy: this.scrollStrategy,
+      panelClass:'test_class',
+      data:{
+        title:"TEMP DUMMY TITLE"
+      }
+    });
+
+    // Subscribe to the afterClosed observable
+    this.dialogRef.afterClosed().subscribe((result:any) => {
+      console.log('Dialog closed with result:', result);
+
+      // Perform additional actions or handle the result as needed
+    });
+    
+  } 
+
+  async getValue() { console.log("HEEEEEEEERRREE");
+    //try {
+      const value = await firstValueFrom(this.textFieldControl.valueChanges);
+      console.log('First value:', value);
+    //} catch (error) {
+    //  console.error('Error getting value:', error);
+    //}
+  }
+
+  continuebtn(){
+    console.log("heree continue btn");
+  }
+
+  closeModal() {
+    this.isVisible = false;
+}
 
   addHeading(newHeading:string){
     this.headings.push(newHeading);
-
   }
-
 
   getData(data:string){
-
-  
   }
 
-
   ngOnInit(): void {
-
+    //this.testAddress.nativeElement.style.color = "red";
     //this.router.navigate(['/Course']);
 
     data$: Observable<number>;
@@ -140,6 +244,11 @@ export class AppComponent implements OnInit,AfterViewInit {
   ngAfterViewInit(): void {
     console.log("In ngoninit");
     this.execute();
+
+    //console.log("VC: ",this.testAddress);
+    
+    
+
   }
 
 

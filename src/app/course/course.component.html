@@ -1,13 +1,20 @@
 <div [ngStyle]="{'margin-bottom':'400px'}">
 <br><br>
-<h2 [ngStyle]="{'color':'red'}">COURSE component: Author: {{ author }}:{{ storageLoggedin }}</h2>
+<a [ngStyle]=
+"{'color':this.inlineStyle?.color ? this.inlineStyle?.color:'',
+'text-decoration':this.inlineStyle?.decoration ? this.inlineStyle?.decoration:'',
+
+}" 
+
+href="#">
+    COURSE component: 
+</a>    
+<span>Author: {{ author }}:{{ storageLoggedin }}</span>
 <p>{{ courseTitle}} works!</p>
 
 <ul>
     <li *ngFor="let topic of courseContent">{{ topic }}</li>
 </ul>
-
-
 
 <label for="heading-input">Add a course:</label>
 <input type="text" id="heading-input" #newParentData>

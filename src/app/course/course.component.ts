@@ -6,12 +6,22 @@ import { Store } from '@ngrx/store';
 
 import { HttpClient } from '@angular/common/http';
 
+interface Styles {
+  fontSize: string;
+  color: string;
+  decoration?:string;
+  hover?:boolean;
+}
+
+
 @Component({
   selector: 'course',
   templateUrl: './course.component.html',
   styleUrls: ['./course.component.css']
 })
 export class CourseComponent implements OnInit {
+  
+
   courseTitle = "OOPS";
   courseContent;
   storageLoggedin:any = "";
@@ -21,19 +31,25 @@ export class CourseComponent implements OnInit {
   @Input() author = "";
   @Output() newParentData = new EventEmitter<string>();
 
+  @Input() inlineStyle: Styles | undefined;
+  //hoverUnderline:boolean;
+
+
   constructor(private http: HttpClient,courses:CourseService,public _testService: TestService,private store:Store<{counter:{counter:number}}>){
+    //this.isHovered = this.inlineStyle?.hover;
     //let courseContent = courses.getCourseTopics();
     this.courseContent = courses.getCourseTopics();  
-
     this.storageLoggedin = localStorage.getItem("isloggedin");
     //console.log("In course component: ",localStorage.getItem("isloggedin"));
   }
 
   counterDisplay!: number;
-  ngOnInit(): void {
+  ngOnInit(): void { 
+    console.log("inlineStyle:::",this.inlineStyle?.hover);
+    //this.hoverUnderline = this.inlineStyle?.hover;
+
     this.store.select('counter').subscribe(data=>{
       this.counterDisplay = data.counter;
-
     })
   }
 
@@ -52,5 +68,7 @@ export class CourseComponent implements OnInit {
     });
   }
 
-
+  onMouseEnter() {
+    //this.isHovered = true;
+  }
 }

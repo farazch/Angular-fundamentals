@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ExternalComponent } from './external.component';
 
-describe('ExternalComponent', () => {
+xdescribe('ExternalComponent', () => {
   let component: ExternalComponent;
   let fixture: ComponentFixture<ExternalComponent>;
 

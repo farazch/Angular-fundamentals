@@ -1,4 +1,38 @@
 /* You can add global styles to this file, and also import other style files */
 
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+
+
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.test_class .mat-dialog-container{
+    padding: 0;
+    padding-top:360px;
+}
+
+
+.test_class .mat-dialog-container .mat-dialog-content{
+    margin: 0;
+    padding-top:360px;
+}
+
+
+.test_class div{
+    font-size:60px;
+    padding-top:160px;
+}
+
+
+.mat-button.mat-red {
+    color: red;
+ }
+
+ /* .menu-popover{
+    padding:20px !important;
+    position: absolute !important;
+    left:30px !important;
+    background-color: #1d1942 !important;
+    color:white !important;
+} */
+

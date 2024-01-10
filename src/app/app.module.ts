@@ -31,6 +31,15 @@ import { AuthInterceptor } from './auth.interceptor';
 import { ExternalComponent } from './external/external.component';
 
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button'
+import { MatMenuModule } from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
+
+import { CommonModule } from '@angular/common';
+
+
 
 @NgModule({
   declarations: [
@@ -51,9 +60,17 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
+    MatSlideToggleModule,
+    MatDialogModule,
+    CommonModule,
+    MatButtonModule,
+    MatMenuModule,
+    MatIconModule,
+  
     
     StoreModule.forRoot({
       counter:counterReducer
+      
     }),
 
 

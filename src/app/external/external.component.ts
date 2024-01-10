@@ -48,7 +48,7 @@ export class ExternalComponent {
         (dataa) => {
           this.user = dataa;
         },
-        error => alert(JSON.stringify(error))
+        //error => alert(JSON.stringify(error))
       );
 
       this.paramId = this.route.snapshot.paramMap.get('id');
