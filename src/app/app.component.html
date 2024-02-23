@@ -305,7 +305,7 @@
 
 <!-- Toolbar -->
 <div class="toolbar" role="banner">
-
+  <h1>DISPLAYED:{{isDisplayed}}</h1>
   <button 
   
       mat-icon-button  
@@ -348,9 +348,13 @@
 
 
 <div class="content" role="main">
+
+  <div>
+COLORRRRR::<a >{{this.color}}</a>After</div>
+<br><br><br><br>
 CS: {{currentStatus}}
 
-<br><br><br><h2>MATERIAL SECTION</h2>
+<br><br><br><h2><a class="mat-sec">MATERIAL SECTION</a></h2>
 <br><br>
 
 <mat-icon class="custom-icon-color">place</mat-icon>
@@ -369,6 +373,10 @@ CS: {{currentStatus}}
 <br><br><br>
 
 <button mat-button color="primary" (click)="this.openDialog()">OPEN MODAL</button>
+
+<button mat-button color="primary" (click)="this.openDialogNew()">OPEN MODAL NEW</button>
+<ng-template #testdataNew>This is new test data</ng-template>
+
 <button mat-raised-button color="primary">Primary</button>
 <button mat-button [disabled]="true">disabled</button>
 <button mat-button disableRipple>disabled</button>
@@ -617,10 +625,12 @@ OFFER:
 
 </div>
 
+
+
 <h2 class="h2_class">TOGGLE EXAMPLE</h2>
 <button (click)="toggle()" id="bt">{{buttonName}}</button>
 
-<img class="imgClass" [attr.src]="src">
+<img class="imgClass" [attr.src]="src" alt="Test img">
 
 <div class="test-address" #testAddress> 
   Test Address
@@ -642,10 +652,6 @@ OFFER:
     <div>Loading...</div>
 </ng-template>
 
-
-
-
-
 <ng-container *ngIf="show">
   <h2>HEADINGS</h2>
   <ul>
@@ -657,7 +663,7 @@ OFFER:
 <!--
 <course [author]="author"  (newParentData)="addHeading($any($event))" />
 -->
-<br><br><br><br><br><br>
+<br><br><br><br>
 <h2>One way data binding(view to component through event)</h2>
 <input [formControl]="textFieldControl" type="text" [value]="eventBindingTitle" (keyup)="getValue()" (keyup.enter)="onEnter($event)">
 {{ eventBindingTitle }}
@@ -676,16 +682,26 @@ OFFER:
 <h2>Data from Test Service</h2>
 {{ _testService.myData }}
 
-<br><br><br><br>
-
-
+<br><br><br>
 
 <ng-template #testdata>
+ <div (click)="printDialog()">PRINT</div> 
 <mat-dialog-content>
-  <mat-icon class="close-icon" (click)="closeDialog('CLLLL')">close</mat-icon>
+  <!-- <mat-icon class="close-icon" (click)="closeDialog('CLLLL')">close</mat-icon> -->
+  <br>without close click function<br>
+  her-><mat-icon mat-dialog-close>close</mat-icon>
+
+  
   <h2 class="title_class" mat-dialog-title>{{title}}</h2>
- <h1>WAOOO this is test modal data dsfds dsfds dfds fds dsfds</h1><br><br>
-  <h2>this is test modal data dsfds dsfds dfds fds dsfds</h2><br><br>
+  <div class="external_class">
+    <div class="green_class">
+      <span class="main_description">Description</span>
+      <span class="">Description two</span>
+    </div>
+    <!-- <h5 class="orange_class">Another description</h5> -->
+  </div>
+
+  <div class="green_class">Green text</div>
   <button mat-button (click)="closeDialog('CLLLL')">Close</button>
   <!-- <h2>three this is test modal data dsfds dsfds dfds fds dsfds</h2><br><br>
   <h2>four this itest modal data dsfds dsfds dfds fds dsfds</h2><br><br>
@@ -701,12 +717,22 @@ OFFER:
 <ul class="list_class">
   <li>this is first in the list and will be the filrst</li>
   <li>this is second and fsds fds dsfds d in the list and will be the filrsts dfds fds dfds sfds fds</li>
-  <li>dfdsfdsf fddsf  fdsds ffds dfds fs fds ewrw twertew  stew wfsfs efe</li>
-  <li>sfsd ewrsfs esfes ewesfew wedsfw wsgfyeyregdj gdge dhtyey rreyer</li>
+  
+  
   </ul>
+  <br><br><br><br><br><br>  eferew<br><br><br><br><br><br> erewrw <br><br><br><br><br><br> erewrewr <br><br><br><br><br><br>  <br><br><br><br><br><br>
+  This is bottom text where focus is going due to link <a href="">FOCUS</a>
   <button mat-button mat-dialog-close (click)="continuebtn()">Continue</button>
 </mat-dialog-content>
+
+
+<div mat-dialog-actions align="start">
+  <button mat-raised-button color="primary" [mat-dialog-close]="true">START BTN</button>
+  <button mat-raised-button color="primary" [mat-dialog-close]="true" >END BTN</button>
+</div>
 </ng-template>
+
+
 
 
 <!-- <button mat-button (click)="showModal = true">Show Modal</button>

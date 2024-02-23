@@ -1,14 +1,11 @@
-import { AfterViewInit, Component, ElementRef, Input, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { TestService } from './test.service';
 import { firstValueFrom, of } from 'rxjs';
-import { Subscriber } from 'rxjs';
-import { Pipe } from '@angular/core';
 import { filter } from 'rxjs';
-import { map } from 'rxjs';
 import { Observable,mergeMap } from 'rxjs';
 import { from } from 'rxjs';
 import { interval } from 'rxjs';
-import { Router,ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
 
 import { PropertyEnumTs } from './property.enum.ts';
@@ -17,10 +14,12 @@ import { PropertyEnumTs } from './property.enum.ts';
 import {MatDialog} from '@angular/material/dialog';
 //import { MatDialogRef } from '@angular/material/dialog';
 
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { DomSanitizer } from '@angular/platform-browser';
 
 
-import { OverlayRef, ScrollStrategy, ScrollStrategyOptions } from '@angular/cdk/overlay';
+
+import { ScrollStrategy, ScrollStrategyOptions } from '@angular/cdk/overlay';
+import { DialogComponent } from './dialog/dialog.component';
 
 interface Styles {
   fontSize: string;
@@ -55,6 +54,12 @@ export class AppComponent implements OnInit,AfterViewInit {
   //@ViewChild('testdataref',{static:false}) testdataref: TemplateRef<any>);
   @ViewChild('testdata', { static: false }) templateRef!: TemplateRef<any>;
 
+  @ViewChild('testdataNew') testdataNewVariable!: TemplateRef<any>;
+
+  @ViewChild('dialogComponent') dialogMain!: TemplateRef<any>;
+
+  @ViewChild(DialogComponent) childComponent!: DialogComponent;
+
   // @ViewChild('myTemplate') myTemplate: TemplateRef<any>;
 
   currentStatus: PropertyEnumTs = PropertyEnumTs.House;
@@ -74,6 +79,8 @@ export class AppComponent implements OnInit,AfterViewInit {
 
   public show:boolean = true;
   public buttonName:any = 'Hide';
+
+  public isDisplayed:boolean = false;
 
 
   // Example 1 
@@ -106,6 +113,8 @@ html:string = "aween baween maween taween";
       display:"Internet"
     }}
 
+    
+
   constructor(
     public _testService: TestService, 
     private router: Router,
@@ -115,6 +124,10 @@ html:string = "aween baween maween taween";
     
     ) 
     {
+      
+      console.log("isDisplayed constructor:",this.isDisplayed);
+      
+     // debugger
     this.scrollStrategy = this.sso.noop();
     enum Answer {
       No = "No",
@@ -128,8 +141,6 @@ html:string = "aween baween maween taween";
       hover:true,
     };
 
-
-    
 
     const userStatus = Answer.No;
     
@@ -146,25 +157,21 @@ html:string = "aween baween maween taween";
     .subscribe(ret=> {
       console.log('Recd ' + ret);
     })
+
+    //this.openDialogNew();
    
   }
    closeDialog(res:any): void {
     console.log("hhh");
     this.dialogRef.close();
-// this.dialogRef.close();
-  //   //this.dialog.closeAll();
-  //   this.dialogRef.close('Dialog closed with result');
    }
-
    //var safeHtml =  this.sanitizer.bypassSecurityTrustHtml(this.htmlString);   
-
   openDialog(): void { 
     
     // Example 1 with scrollStrategy
     // const dialogRef = this.dialog.open(this.templateRef, {scrollStrategy: this.scrollStrategy 
     // });
     
-
     this.dialogRef = this.dialog.open(this.templateRef, {
      
       scrollStrategy: this.scrollStrategy,
@@ -175,13 +182,25 @@ html:string = "aween baween maween taween";
     });
 
     // Subscribe to the afterClosed observable
-    this.dialogRef.afterClosed().subscribe((result:any) => {
+    this.dialogRef.afterClosed().subscribe((result:string) => {
       console.log('Dialog closed with result:', result);
-
       // Perform additional actions or handle the result as needed
-    });
+    });    
+  } 
+
+  openDialogNew(): void { 
+    // Below working
+    this.dialogRef = this.dialog.open(this.testdataNewVariable);
+
+
+    //this.dialogRef = this.dialog.open(this.childComponent);
+    
+
+    //this.dialogRef = this.dialog.open(this.dialogMain);
     
   } 
+
+
 
   async getValue() { console.log("HEEEEEEEERRREE");
     //try {
@@ -210,7 +229,7 @@ html:string = "aween baween maween taween";
   ngOnInit(): void {
     //this.testAddress.nativeElement.style.color = "red";
     //this.router.navigate(['/Course']);
-
+    console.log("isDisplayed ngOnInit:",this.isDisplayed);
     data$: Observable<number>;
     data$ : of(7,8);
 
@@ -242,6 +261,7 @@ html:string = "aween baween maween taween";
   }
 
   ngAfterViewInit(): void {
+    this.openDialogNew();
     console.log("In ngoninit");
     this.execute();
 
@@ -281,6 +301,12 @@ html:string = "aween baween maween taween";
     this.eventBindingTitle = event.target.value;
     console.log('Updated Value:'+this.eventBindingTitle);
   }
+
+
+  printDialog(){
+    window.print();
+  }
+
 
 }
 

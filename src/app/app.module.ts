@@ -39,6 +39,8 @@ import { MatIconModule } from '@angular/material/icon';
 
 import { CommonModule } from '@angular/common';
 
+import { DialogComponent } from './dialog/dialog.component';
+
 
 
 @NgModule({
@@ -53,6 +55,8 @@ import { CommonModule } from '@angular/common';
     HomeComponent,
     LoginComponent,
     ExternalComponent,
+
+    DialogComponent,
 
   ],
   imports: [
