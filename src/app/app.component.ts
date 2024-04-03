@@ -14,12 +14,17 @@ import { PropertyEnumTs } from './property.enum.ts';
 import {MatDialog} from '@angular/material/dialog';
 //import { MatDialogRef } from '@angular/material/dialog';
 
-import { DomSanitizer } from '@angular/platform-browser';
-
-
+import { DomSanitizer,SafeHtml } from '@angular/platform-browser';
 
 import { ScrollStrategy, ScrollStrategyOptions } from '@angular/cdk/overlay';
 import { DialogComponent } from './dialog/dialog.component';
+
+import {MatExpansionModule} from '@angular/material/expansion';
+import { MatMenuTrigger } from '@angular/material/menu';
+
+import {A11yModule} from '@angular/cdk/a11y';
+
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 interface Styles {
   fontSize: string;
@@ -45,6 +50,8 @@ export interface OfferInterface {
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
+
+
 export class AppComponent implements OnInit,AfterViewInit {
   scrollStrategy: ScrollStrategy;
   dialogRef: any;
@@ -59,6 +66,8 @@ export class AppComponent implements OnInit,AfterViewInit {
   @ViewChild('dialogComponent') dialogMain!: TemplateRef<any>;
 
   @ViewChild(DialogComponent) childComponent!: DialogComponent;
+
+  @ViewChild(MatMenuTrigger) menuTrigger!: MatMenuTrigger;
 
   // @ViewChild('myTemplate') myTemplate: TemplateRef<any>;
 
@@ -87,11 +96,11 @@ export class AppComponent implements OnInit,AfterViewInit {
   ff$ = of(1,4,5,6).pipe(filter((item) => item>4)).subscribe(out => console.log("OUT:",out)); 
 
   // Example 2
-  ff2$ = from([11,14,15,16]).pipe(filter((item) => item > 10)).subscribe(out => console.log("OUT:",out)); 
+  //ff2$ = from([11,14,15,16]).pipe(filter((item) => item > 10)).subscribe(out => console.log("OUT:",out)); 
 
 html:string = "aween baween maween taween";
 
-// htmlString = '<p>This is <strong>safe</strong> HTML content.</p>';
+ htmlString = '<p>This is <strong>safe</strong> HTML content.</p>';
 // outputsafe:string = '';
 
 
@@ -112,21 +121,21 @@ html:string = "aween baween maween taween";
     '1-29P': {
       display:"Internet"
     }}
-
     
-
+    
+   
   constructor(
     public _testService: TestService, 
     private router: Router,
     public dialog:MatDialog,
     private readonly sso: ScrollStrategyOptions,
-    public sanitizer: DomSanitizer
+    public sanitizer: DomSanitizer,
     
     ) 
     {
       
       console.log("isDisplayed constructor:",this.isDisplayed);
-      
+      // sanitizedHtml =  this.sanitizer.bypassSecurityTrustHtml(this.htmlString);
      // debugger
     this.scrollStrategy = this.sso.noop();
     enum Answer {
@@ -161,11 +170,25 @@ html:string = "aween baween maween taween";
     //this.openDialogNew();
    
   }
+
+
+  openMenu(event:Event):void{
+    event.preventDefault();
+    this.menuTrigger.openMenu();
+  }
+  buttonKeyDown(event: any) {
+    console.log(event);
+    if (event.key === 'Tab' || (event.key === 'Tab' && event.shiftKey)) {
+      event.stopPropagation();
+    }
+  }
+
+
    closeDialog(res:any): void {
     console.log("hhh");
     this.dialogRef.close();
    }
-   //var safeHtml =  this.sanitizer.bypassSecurityTrustHtml(this.htmlString);   
+   //   
   openDialog(): void { 
     
     // Example 1 with scrollStrategy
@@ -174,8 +197,10 @@ html:string = "aween baween maween taween";
     
     this.dialogRef = this.dialog.open(this.templateRef, {
      
-      scrollStrategy: this.scrollStrategy,
-      panelClass:'test_class',
+      // scrollStrategy: this.scrollStrategy,
+      // panelClass:'test_class',
+      height:'20px',
+      // autoFocus: false,
       data:{
         title:"TEMP DUMMY TITLE"
       }
@@ -190,7 +215,10 @@ html:string = "aween baween maween taween";
 
   openDialogNew(): void { 
     // Below working
-    this.dialogRef = this.dialog.open(this.testdataNewVariable);
+    this.dialogRef = this.dialog.open(this.testdataNewVariable,{
+      height:'90px',
+      // autoFocus: false,
+    });
 
 
     //this.dialogRef = this.dialog.open(this.childComponent);
@@ -261,7 +289,7 @@ html:string = "aween baween maween taween";
   }
 
   ngAfterViewInit(): void {
-    this.openDialogNew();
+    //this.openDialogNew();
     console.log("In ngoninit");
     this.execute();
 

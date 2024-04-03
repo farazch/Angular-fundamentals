@@ -36,3 +36,21 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     color:white !important;
 } */
 
+.menu-popover{
+    padding:40px ;
+    position: absolute !important;
+    left:30px !important;
+    background-color: #1d1942 !important;
+    color:white !important;
+}
+/* 
+.custom-header .mat-expansion-indicator{
+    transform: rotate(260deg) !important;
+
+  }
+  
+  .custom-header .mat-expansion-indicator::after{
+    transform: rotate(90deg) !important;
+    
+  } */
+

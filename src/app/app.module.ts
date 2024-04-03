@@ -41,7 +41,10 @@ import { CommonModule } from '@angular/common';
 
 import { DialogComponent } from './dialog/dialog.component';
 
+import {MatExpansionModule} from '@angular/material/expansion';
+import {A11yModule} from '@angular/cdk/a11y';
 
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -70,7 +73,11 @@ import { DialogComponent } from './dialog/dialog.component';
     MatButtonModule,
     MatMenuModule,
     MatIconModule,
-  
+    MatExpansionModule,
+    A11yModule,
+    NoopAnimationsModule,
+
+    
     
     StoreModule.forRoot({
       counter:counterReducer

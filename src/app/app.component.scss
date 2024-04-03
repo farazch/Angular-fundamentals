@@ -79,13 +79,13 @@ h5{
     display: block;
 }
 
-.menu-popover{
-    padding:20px !important;
-    position: absolute !important;
-    left:30px !important;
-    background-color: #1d1942 !important;
-    color:white !important;
-}
+// .menu-popover{
+//     padding:40px !important;
+//     position: absolute !important;
+//     left:30px !important;
+//     background-color: #1d1942 !important;
+//     color:white !important;
+// }
 
 .custom-small-button {
     font-size: 22px;
@@ -200,4 +200,332 @@ h5{
 
 // .external_class .green_class .main_description{
 //   color:orange;
+// }
+// .mat-expansion-indicator::after {
+//   transform: rotate(25deg) !important;  
+// }
+
+// .mat-expansion-panel {
+//   .mat-expansion-indicator {
+//     transition: transform .3s ease;
+
+//     &::after {
+//       transform: rotate(-135deg);
+//     }
+//   }
+
+//   &.mat-expanded {
+//     .mat-expansion-indicator {
+//       transform: rotate(40deg) !important;
+//     }
+//   }
+// }
+
+
+
+// .mat-expansion-indicator {
+//   transform: rotate(290deg); /* Change the rotation angle to rotate the indicator */
+// }
+
+.rotate{
+  transform: rotate(110deg);
+}
+
+
+// .custom-header .mat-expansion-indicator{
+//   transform: rotate(60deg) !important;
+// }
+
+// .custom-header .mat-expansion-indicator::after{
+//   transform: rotate(260deg) !important;
+// }
+
+
+:root {
+    --red: #ff291e;
+    --white: #ffffff;
+    --fontSize: 26px;
+  }
+
+ 
+
+.header{
+color:var(--red);
+font-size: var(--fontSize);
+}
+
+h5{
+    font-size: var(--fontSize);
+
+}
+
+.h2_class{
+    text-decoration: underline;
+}
+
+.imgClass{
+    width:650px;
+    border:4px solid;
+    @media screen and (max-width:600px){
+        width:300px;    
+    }
+}
+
+.test-address{
+	color:green;    
+    &__container{
+        color:blue;
+    } 
+}
+
+
+.test_class{
+    font-size:30px;
+    padding-top:160px;
+}
+
+.test_class div{
+    font-size:30px;
+    padding-top:160px;
+}
+
+
+// .test_class  .mat-mdc-dialog-title {
+//     background-color: red;
+//     padding-top:260px;
+// }
+
+.test_class .mat-dialog-container{
+    padding: 0;
+    padding-top:360px;
+}
+
+
+
+// .temppopup{
+//     position: absolute;
+//     top:140px;
+//     left:50px;
+//     z-index: 100;
+// }
+
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000; /* Set your desired z-index value */
+    display: none;
+}
+
+.modal.show {
+    display: block;
+}
+
+// .menu-popover{
+//     padding:40px !important;
+//     position: absolute !important;
+//     left:30px !important;
+//     background-color: #1d1942 !important;
+//     color:white !important;
+// }
+
+.custom-small-button {
+    font-size: 22px;
+  }
+
+
+  .custom-button {
+    background-color: #3166ba !important;
+    color: white !important;
+    font-size:16px;
+    padding:20px;
+  }
+  .custom-button2 {
+    background-color: #3166ba;
+    color: white !important;
+    font-size:16px;
+    padding:20px;
+  }
+
+  .custom-icon-color {
+    font-size:24px;
+    color: #244f6f; /* Set your desired color */
+  }
+
+  .print-icon
+  {
+    color: #3b5c7f;
+  }
+
+  .print-btn{
+    color: #49606e !important;
+    border:1px solid black;
+    padding-left:20px;
+    padding-right:20px;
+    background-color: transparent;
+  }
+
+ 
+
+
+  .list_class{
+    list-style-type: none;
+  }
+
+  .list_class li{
+    position: relative;
+  padding-left: 1.5em; /* Adjust padding as needed */
+  line-height: 1.5; 
+  }
+
+  .list_class li::marker{
+
+    content: '\2022'; /* Unicode character for a bullet point */
+  color: red; /* Change the color to your desired color */
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  }
+
+  .close-icon {
+    //   position: absolute;
+    //   top: 0;
+    //   right: 0;
+    font-size: 24px;
+    cursor:pointer;
+  }
+
+  .close_btn_class{
+    background-color: white;;
+  }
+
+.wao_class{
+    font-size:12px;
+}
+
+
+
+
+
+.title_class{
+    font-size: 36px;
+  }
+
+.mat-mdc-dialog-title{
+    font-size:52px;
+}
+
+.mat-dialog .mat-mdc-dialog-title{
+    font-size:44px;
+}
+
+
+.mat-sec:hover{
+  color:red;
+  padding:7px;
+}
+
+.mat-mdc-dialog-container{
+	font-size:36px;
+  color:green;
+}
+
+// .external_class{
+//   color:red;
+// }
+
+.external_class { > .green_class .main_description{
+  color:orange;
+}
+}
+
+// .external_class .green_class .main_description{
+//   color:orange;
+// }
+// .mat-expansion-indicator::after {
+//   transform: rotate(25deg) !important;  
+// }
+
+// .mat-expansion-panel {
+//   .mat-expansion-indicator {
+//     transition: transform .3s ease;
+
+//     &::after {
+//       transform: rotate(-135deg);
+//     }
+//   }
+
+//   &.mat-expanded {
+//     .mat-expansion-indicator {
+//       transform: rotate(40deg) !important;
+//     }
+//   }
+// }
+
+
+
+// .mat-expansion-indicator {
+//   transform: rotate(290deg); /* Change the rotation angle to rotate the indicator */
+// }
+
+// .rotate{
+//   transform: rotate(110deg);
+// }
+
+
+
+// .custom-title .open,
+// .mat-expanded .mat-expansion-panel-header-title .close{
+//   display: inline-block;
+//   border:1px solid red;
+// }
+// .mat-expanded .mat-expansion-panel-header-title .open,
+// .mat-expansion-panel-header-title .close{
+//   display: none;
+//   border:1px solid green;
+// }
+
+
+
+// .custom-arrow {
+//   display: inline-block;
+// }
+
+// .custom-arrow.hidden {
+//   display: none;
+// }
+
+
+// .mat-expansion-panel-header-title .open {
+//   display: inline-block;
+// }
+
+// .mat-expansion-panel-header-title .close {
+//   display: none;
+// }
+
+// .mat-expanded .mat-expansion-panel-header-title .close {
+//   display: inline-block;
+// }
+
+// .mat-expanded .mat-expansion-panel-header-title .open {
+//   display: none;
+// }
+
+.custom-title .open, .mat-expanded .custom-title .close {
+  display: inline-block;
+}
+
+.custom-title .close, .mat-expanded .custom-title .open  {
+  display: none;
+}
+
+// .mat-expanded .custom-title .close {
+//   display: inline-block;
+// }
+
+// .mat-expanded .custom-title .open {
+//   display: none;
 // }
