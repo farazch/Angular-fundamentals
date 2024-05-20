@@ -13,7 +13,7 @@ export class AuthInterceptor implements HttpInterceptor {
   constructor() {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    const API_KEY = 'test1234';
+    const API_KEY = 'test123456';
    // console.log("REQ IN INTERCEPTOR:",request);
     
    

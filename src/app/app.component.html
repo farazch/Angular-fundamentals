@@ -303,6 +303,8 @@
   }
 </style>
 
+
+
 <!-- Toolbar -->
 <div class="toolbar" role="banner">
   <h1 tabindex="0">DISPLAYED:{{isDisplayed}}</h1>
@@ -312,6 +314,16 @@
       aria-label="Example icon-button with a menu">
     OPEN
   </button>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <!-- <button  tabindex="0" class="test_highlight">
+    -
+  </button> -->
+
+  <button  tabindex="0" class="test_highlight2">
+    
+  </button>
+   <!-- <div class="outer"><i tabindex="0" class="material-icons">remove</i></div> -->
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -330,7 +342,7 @@
 </mat-menu>
   
 
-
+Monthly Label: {{ monthly.label }}
 
   
 </div>
@@ -340,9 +352,32 @@
 
 <div class="content" role="main">
 
+
+<ng-container #container></ng-container>
+APS: {{isAutoPaySelected }}
+<mat-radio-group (change)="radioSelection($event)">
+<mat-radio-button value="1" >This</mat-radio-button>
+<mat-radio-button value="2" >That</mat-radio-button>
+</mat-radio-group>
+<br><br>===================================<br><br>
+
+
+<form>
+  <label>
+    <input type="radio" name="radioGroup" [value]="'option1'" (change)="onRadioChange($event)" [checked]="(selectedValue$ | async) === 'option1'"> Option 1
+  </label>
+  <label>
+    <input type="radio" name="radioGroup" [value]="'option2'" (change)="onRadioChange($event)" [checked]="(selectedValue$ | async) === 'option2'"> Option 2
+  </label>
+</form>
+
+<br><br>===================================<br><br>
+
   <div>
 COLORRRRR::<a >{{this.color}}</a>After</div>
-<br><br><br><br>
+<br><br>
+<div (click)="createComponent">Calling CreateComponent</div>
+<br><br>
 <!-- <p [innerHTML] = "safeHtml | sanitizeHTML"></p> -->
 <br><br><br><br>
 CS: {{currentStatus}}
@@ -370,7 +405,7 @@ CS: {{currentStatus}}
 <button mat-button color="primary" (click)="this.openDialogNew()">OPEN MODAL NEW</button>
 <ng-template #testdataNew autoFocus="false">
     This is new test data
-
+dfdsfds
 
     <mat-accordion [togglePosition]="'before'" hideToggle = "true">Mat accordion starts
     <mat-expansion-panel>

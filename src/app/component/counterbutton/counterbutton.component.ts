@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { increment,decrement,reset, incrementtenn } from 'src/app/shared/store/counter.actions';
-import { isloadingSelector } from 'src/app/shared/store/selectors';
+//import { isloadingSelector } from 'src/app/shared/store/selectors';
 import { Observable } from 'rxjs';
 import { AppStateInterface } from 'src/app/types/appStates.interface';
 
@@ -12,11 +12,11 @@ import { AppStateInterface } from 'src/app/types/appStates.interface';
 })
 export class CounterbuttonComponent {
 
-  isLoading$: Observable<boolean>;
+  //isLoading$: Observable<boolean>;
 
   constructor(private store:Store<AppStateInterface> ){
       
-    this.isLoading$ = this.store.pipe(select(isloadingSelector));
+    //this.isLoading$ = this.store.pipe(select(isloadingSelector));
 
   }
 

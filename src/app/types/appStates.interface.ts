@@ -4,5 +4,6 @@ import { counterStateInterface } from "./counterState.interface"
 // Right now it has only counter, there can be many states like authentication, counter etc
 
 export interface AppStateInterface {
-    counter: counterStateInterface;
+    // countder: counterStateInterface;
+    total: counterStateInterface;
 }

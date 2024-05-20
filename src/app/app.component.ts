@@ -1,17 +1,19 @@
-import { AfterViewInit, Component, Input, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
 import { TestService } from './test.service';
-import { firstValueFrom, of } from 'rxjs';
+import { firstValueFrom, of, takeUntil } from 'rxjs';
 import { filter } from 'rxjs';
 import { Observable,mergeMap } from 'rxjs';
 import { from } from 'rxjs';
 import { interval } from 'rxjs';
-import { Router } from '@angular/router';
+import { Router,Route } from '@angular/router';
 import { FormControl } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
 import { PropertyEnumTs } from './property.enum.ts';
+import { AddressCategory } from './addressCategory.enum';
 
 //import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import {MatDialog} from '@angular/material/dialog';
+import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 //import { MatDialogRef } from '@angular/material/dialog';
 
 import { DomSanitizer,SafeHtml } from '@angular/platform-browser';
@@ -25,6 +27,14 @@ import { MatMenuTrigger } from '@angular/material/menu';
 import {A11yModule} from '@angular/cdk/a11y';
 
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { CourseComponent } from './course/course.component';
+import { CoursesComponent } from './courses.component';
+import { MatRadioChange } from '@angular/material/radio';
+
+import { setSelectedValue } from './shared/store/radio-button.actions'
+import { selectSelectedValue } from './shared/store/radio-button.selectors';
+import { Store, select } from '@ngrx/store';
+// import { MatRadioModule } from '@angular/material';
 
 interface Styles {
   fontSize: string;
@@ -32,6 +42,13 @@ interface Styles {
   decoration?:string|'kk';
   hover?:boolean;
 }
+
+export interface Monthly {
+  label?: string;
+  description?: string;  
+  quantity?: number;
+}
+
 
 // interface TEComponentCheckBox {
 //   id:{display:string};
@@ -71,8 +88,11 @@ export class AppComponent implements OnInit,AfterViewInit {
 
   // @ViewChild('myTemplate') myTemplate: TemplateRef<any>;
 
+  @ViewChild('container',{read:ViewContainerRef,static:true}) container!: ViewContainerRef;
+
   currentStatus: PropertyEnumTs = PropertyEnumTs.House;
   styles: Styles;
+  
 
   title = 'hello-world';
   author = 'faraz';
@@ -90,7 +110,11 @@ export class AppComponent implements OnInit,AfterViewInit {
   public buttonName:any = 'Hide';
 
   public isDisplayed:boolean = false;
-
+  monthly: Monthly = {
+    label: 'haii gg',
+    description: "Test desc",
+    quantity: 1,
+  }
 
   // Example 1 
   ff$ = of(1,4,5,6).pipe(filter((item) => item>4)).subscribe(out => console.log("OUT:",out)); 
@@ -122,7 +146,10 @@ html:string = "aween baween maween taween";
       display:"Internet"
     }}
     
+    isAutoPaySelected$ : Observable<any>;
+    isAutoPaySelected : boolean;
     
+    selectedValue$: Observable<string>;
    
   constructor(
     public _testService: TestService, 
@@ -130,10 +157,31 @@ html:string = "aween baween maween taween";
     public dialog:MatDialog,
     private readonly sso: ScrollStrategyOptions,
     public sanitizer: DomSanitizer,
-    
+    public route:ActivatedRoute,
+    private store: Store,
     ) 
     {
+      this.selectedValue$ = this.store.pipe(select(selectSelectedValue));
+
+      this.isAutoPaySelected$ = of([]);
+      this.isAutoPaySelected = true;
+      //cost description = alternateLabel ?alternateLabel.alternateSubLevel : item?.description;
+      // const desc = this.monthly?.label 
+      // ? ( this.monthly?.quantity > 1 ) ? `${this.monthly.quantity} ${this.monthly.label}`: this.monthly.label  
+      // : ` No label`;
       
+      //const label = `${this.monthly.quantity}${this.monthly?.quantity === 1 ? ` ${this.monthly.label}` : ''}`;
+      //const desc = this.monthly?.label ? label : ` No label`;
+      
+      const desc = this.monthly?.label
+    ? (this.monthly.quantity && this.monthly.quantity > 1)
+        ?`${this.monthly.quantity} ${this.monthly.label}`
+        : this.monthly.label
+    : this.monthly.description;
+      
+      console.log("Description::::::",desc);
+
+
       console.log("isDisplayed constructor:",this.isDisplayed);
       // sanitizedHtml =  this.sanitizer.bypassSecurityTrustHtml(this.htmlString);
      // debugger
@@ -149,7 +197,6 @@ html:string = "aween baween maween taween";
       decoration:'underline',
       hover:true,
     };
-
 
     const userStatus = Answer.No;
     
@@ -171,8 +218,12 @@ html:string = "aween baween maween taween";
    
   }
 
+  createComponent(){
+    this.container.clear;
+    this.container.createComponent(CoursesComponent);
+  }
 
-  openMenu(event:Event):void{
+  openMenu(event:Event):void{ 
     event.preventDefault();
     this.menuTrigger.openMenu();
   }
@@ -182,6 +233,22 @@ html:string = "aween baween maween taween";
       event.stopPropagation();
     }
   }
+
+  radioSelection(event: MatRadioChange){
+  //radioSelection(event: Event){
+    
+    //const inputElement = event.target as HTMLInputElement;
+    const value = event.value;
+    console.log("inputElement: ",value);
+  }
+  onRadioChange(event: Event): void {
+    const inputElement = event.target as HTMLInputElement;
+    this.store.dispatch(setSelectedValue({ value: inputElement.value }));
+  }
+
+  // this.isAutoPaySelected$.pipe(takeUntil(this.destroy$)).subscribe((isAutoPaySelected) => {
+  //   this.isAutoPaySelected= isAutoPaySelected
+  // });
 
 
    closeDialog(res:any): void {
@@ -257,10 +324,28 @@ html:string = "aween baween maween taween";
   ngOnInit(): void {
     //this.testAddress.nativeElement.style.color = "red";
     //this.router.navigate(['/Course']);
-    console.log("isDisplayed ngOnInit:",this.isDisplayed);
+    //console.log("isDisplayed ngOnInit:",this.isDisplayed);
     data$: Observable<number>;
     data$ : of(7,8);
 
+    
+    const queryParams = this.route.snapshot.queryParams;
+    const processedParams: Record<AddressCategory,string> = {
+      street: '',
+      zip:'',
+      city:'',
+    };
+    
+    console.log("before");
+    for(const key in queryParams){
+      console.log("QP Key:",key);
+      if(queryParams.hasOwnProperty(key))
+      {
+          // if(processedParams[key]){
+          //   console.log("Own key:",key);
+          // }
+      }
+    }
     //material$ = of('video','cd');
     /*
     material$.subscribe(res => {
@@ -290,7 +375,7 @@ html:string = "aween baween maween taween";
 
   ngAfterViewInit(): void {
     //this.openDialogNew();
-    console.log("In ngoninit");
+    //console.log("In ngoninit");
     this.execute();
 
     //console.log("VC: ",this.testAddress);
@@ -305,10 +390,10 @@ html:string = "aween baween maween taween";
 
     
 
-    console.log(`source is: ${source$}`);
+    //console.log(`source is: ${source$}`);
     
     const firstValue =  firstValueFrom(source$);
-    console.log(`First number is: ${firstValue}`);
+    //console.log(`First number is: ${firstValue}`);
   }
 
 

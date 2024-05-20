@@ -17,6 +17,8 @@ import { CounterdisplayComponent } from './component/counterdisplay/counterdispl
 import { counterReducer } from './shared/store/counter.reducer';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { radioButtonReducer } from './shared/store/radio-button.reducer';
+
 import { MaterialModel } from './Material.Module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ReactiveformComponent } from './reactiveform/reactiveform.component';
@@ -45,6 +47,8 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import {A11yModule} from '@angular/cdk/a11y';
 
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
+import { MatRadioModule } from '@angular/material/radio';
 
 @NgModule({
   declarations: [
@@ -76,12 +80,12 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
     MatExpansionModule,
     A11yModule,
     NoopAnimationsModule,
-
+    MatRadioModule,
     
     
     StoreModule.forRoot({
-      counter:counterReducer
-      
+      counter:counterReducer,
+      radioButtonFa: radioButtonReducer
     }),
 
 

@@ -8,8 +8,9 @@ import { counterStateInterface } from "src/app/types/counterState.interface";
 
 
 export const initialState:counterStateInterface = {
-    counter:0,
+    counter:6,
     loading:true,
+    total:1000,
     
 };
 
@@ -31,25 +32,29 @@ const _counterReducer = createReducer(initialState,
     on(increment, (state) => {
         return {
             ...state,
-            counter:state.counter+1 
+            counter:state.counter+1,
+            total:30000,  
         };
     }),     
     on(decrement, (state) => {
         return {
             ...state,
-            counter:state.counter-1 
+            counter:state.counter-1,
+            total:10000, 
         };
     }),
     on(reset, (state) => {
         return {
             ...state,
-            counter:0 
+            counter:0, 
+            total:5000,
         };
     }),
     on(incrementtenn,(state,action)=>{
         return{
             ...state,
-            counter:state.counter+10+action.value
+            counter:state.counter+10+action.value,
+            total:state.total+100,
         };
     }),
     
