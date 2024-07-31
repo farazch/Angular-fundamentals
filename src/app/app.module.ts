@@ -49,6 +49,7 @@ import {A11yModule} from '@angular/cdk/a11y';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatRadioModule } from '@angular/material/radio';
+import {MAT_BOTTOM_SHEET_DEFAULT_OPTIONS} from '@angular/material/bottom-sheet';
 
 @NgModule({
   declarations: [
@@ -85,7 +86,7 @@ import { MatRadioModule } from '@angular/material/radio';
     
     StoreModule.forRoot({
       counter:counterReducer,
-      radioButtonFa: radioButtonReducer
+      radioButton: radioButtonReducer
     }),
 
 
@@ -102,7 +103,8 @@ import { MatRadioModule } from '@angular/material/radio';
   providers: [
     CoursesService,
     CourseService,
-    {provide: HTTP_INTERCEPTORS,useClass:AuthInterceptor,multi:true}
+    {provide: HTTP_INTERCEPTORS,useClass:AuthInterceptor,multi:true},
+    { provide: MAT_BOTTOM_SHEET_DEFAULT_OPTIONS, useValue: {panelClass: 'bottom-sheet'} }
   ], // we need to register dependencies that components in this modules are dependant upon
   bootstrap: [AppComponent]
 })

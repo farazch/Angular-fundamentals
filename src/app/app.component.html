@@ -338,30 +338,79 @@
 
   <button (click)="continuebtn()" tabindex="0" (keydown)="buttonKeyDown($event)">Continue</button>
   <button tabindex="0" (keydown)="buttonKeyDown($event)">Cancel</button>
-
-</mat-menu>
-  
+</mat-menu>  
 
 Monthly Label: {{ monthly.label }}
-
   
 </div>
 
-
-
-
 <div class="content" role="main">
-
-
 <ng-container #container></ng-container>
-APS: {{isAutoPaySelected }}
-<mat-radio-group (change)="radioSelection($event)">
-<mat-radio-button value="1" >This</mat-radio-button>
-<mat-radio-button value="2" >That</mat-radio-button>
+
+  <!-- <div class="modal_voice">
+    <div class="modal_voice_subheader">Voice subheader</div>
+    <div class="modal_voice_title">Voice title</div>
+  </div>
+  
+  <div class="modal_tv">
+    <div class="modal_tv_subheader">TV subheader</div>
+    <div class="modal_tv_title">TV title</div>
+  </div> -->
+
+  Display Name: {{ offer['1-29P'].display }}
+
+<h1>DISPLAYING MAP</h1>
+  <ul id="elContainer"></ul>
+
+  <h1>DISPLAYING SWITCHALL</h1>
+  <ul id="elContainer2"></ul>
+SHOWWW: {{show}}
+
+  <h1 ngClass="{ show ?  'header3' : 'header5'}">DISPLAYING SWITCHMAP</h1>
+  <ul id="elContainer3"></ul>
+
+  <div *ngIf="obj1$ | async as time">{{ time }}</div>
+
+
+  <ul class="list_class_image">
+    <li>this is first in the list and will be the filrst</li>
+    <li>this is second and fsds fds dsfds d in the list and will be the filrsts dfds fds dfds sfds fds</li>
+    
+    
+    </ul>
+
+
+<strong>APS:</strong> {{isAutoPaySelected }} ---- <strong>Phone type:</strong> {{ phoneType }}
+<mat-radio-group (change)="radioSelection($event)" (click)="scrollToSection('section2')">
+<mat-radio-button value="Mobile" [checked]="phoneType === 'Mobile'" >Mobile</mat-radio-button>
+<mat-radio-button value="Home" [checked]="phoneType === 'Home'">Home</mat-radio-button>
 </mat-radio-group>
 <br><br>===================================<br><br>
 
+<h2>Example with loop</h2>
+<div >
+  <!-- <strong>Phone type loop:</strong>{{phoneTypeLoop }}: 
+  ---- <strong>Option Value:</strong>{{ option.value }}: -->
+  <!-- --- ngif("phoneTypeLoop == option.value") ? "Matched" : "Not matched" -->
+<br><br><br>
+<mat-radio-group>
+  <mat-radio-button *ngFor="let option of phoneOptions"  [checked]="phoneTypeLoop === option.value" (click)="radioSelectionLoop(option.value)">
+    {{ option.display }}
+  </mat-radio-button>
+</mat-radio-group>
+</div>
 
+<br><br>===================================<br><br><br>
+<h1>WORKING</h1>
+
+<mat-radio-group (change)="onRadioChange2($event)">
+  <mat-radio-button *ngFor="let option of options" [value]="option.value" [checked]="selectedOption === option.value">
+    {{ option.label }}
+  </mat-radio-button>
+</mat-radio-group>
+<p>Selected Option: {{ selectedOption }}</p>
+
+<br><br>===================================<br><br>
 <form>
   <label>
     <input type="radio" name="radioGroup" [value]="'option1'" (change)="onRadioChange($event)" [checked]="(selectedValue$ | async) === 'option1'"> Option 1
@@ -371,12 +420,21 @@ APS: {{isAutoPaySelected }}
   </label>
 </form>
 
+Initial Text: {{getInitialText}}
+
+<br>
+
+
 <br><br>===================================<br><br>
 
   <div>
 COLORRRRR::<a >{{this.color}}</a>After</div>
 <br><br>
-<div (click)="createComponent">Calling CreateComponent</div>
+
+<br>findPhoneTrue:<br>{{ findPhoneTrue | json }}
+<br>{{ findPhoneTrue.default }}<br>
+<br><br>
+<div (click)="createComponent()">ccc Calling CreateComponent</div>
 <br><br>
 <!-- <p [innerHTML] = "safeHtml | sanitizeHTML"></p> -->
 <br><br><br><br>
@@ -578,7 +636,7 @@ OFFER:
 
   <!-- Next Steps -->
   <h2>Next Steps</h2>
-  <p>What do you want to do next with your app?</p>
+  <p id="section2" #section2>What do you want to do next with your app?</p>
 
   <input type="hidden" #selection>
 
@@ -710,7 +768,7 @@ OFFER:
   ...>>>>>> 
 </div>
 
-<div [innerHTML]="html"></div>
+<div class="innerdirect" [innerHTML]="html"></div>
 
 <ng-template #loading>
     <div>Loading...</div>

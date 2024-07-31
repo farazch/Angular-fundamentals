@@ -16,6 +16,13 @@ export class CoursesService{
         return ["OOP","OS","DB"];
     }
 
+    getCoursesStruct(){
+        return {"Blogs": [
+            {"id":1,"title":"Angular"},
+            {"id":2,"title":"React"},
+
+        ]}
+    }
 
     
 

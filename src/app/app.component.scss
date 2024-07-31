@@ -4,16 +4,65 @@
     --fontSize: 26px;
   }
 
- 
+ .modal{
+    &_voice,
+    &_tv{
+      &_subheader{
+        color:red;
+      }
+      
+      &_title{
+        color:green;
+      }	
+    }  
+
+    &_voice_subheader{
+      color:pink;
+    }
+ }
+
 
 .header{
 color:var(--red);
 font-size: var(--fontSize);
+
 }
+
+.header3{
+  color:orange;
+  font-size: var(--fontSize);
+
+  }
+
+  .header4{
+    color:red;
+    font-size: var(--fontSize);
+  
+  }
+
+  .header5{
+    text-decoration: underline;
+  
+  }
+
+.inner {
+  color:red;
+  font-size: 40px;
+}
+.inner a.active{
+  color:red;
+}
+
+
 
 h5{
     font-size: var(--fontSize);
 
+}
+
+.parent-class a {
+  color: red;
+  text-decoration: none;
 }
 
 .h2_class{
@@ -123,7 +172,18 @@ h5{
     background-color: transparent;
   }
 
- 
+  .list_class_image{
+    list-style-type: none;
+  }
+
+
+  .list_class_image li {
+    list-style-type: none; /* Remove default bullets */
+    padding-left: 20px; /* Adjust as needed */
+    background: url('/assets/tick.jpg') no-repeat left center;
+    background-size: 16px 16px; /* Adjust size as needed */
+  }
+
 
 
   .list_class{

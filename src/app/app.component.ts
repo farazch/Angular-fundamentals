@@ -1,6 +1,6 @@
-import { AfterViewInit, Component, Input, OnInit, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit, TemplateRef, ViewChild, ViewContainerRef,ElementRef } from '@angular/core';
 import { TestService } from './test.service';
-import { firstValueFrom, of, takeUntil } from 'rxjs';
+import { delay, firstValueFrom, of, switchMap, takeUntil } from 'rxjs';
 import { filter } from 'rxjs';
 import { Observable,mergeMap } from 'rxjs';
 import { from } from 'rxjs';
@@ -34,7 +34,16 @@ import { MatRadioChange } from '@angular/material/radio';
 import { setSelectedValue } from './shared/store/radio-button.actions'
 import { selectSelectedValue } from './shared/store/radio-button.selectors';
 import { Store, select } from '@ngrx/store';
+import { timer,combineLatest } from 'rxjs';
+import { isNgTemplate } from '@angular/compiler';
 // import { MatRadioModule } from '@angular/material';
+import { map } from 'rxjs';
+import { setText } from 'src/app/shared/store/counter.actions';
+import { selectSetText } from 'src/app/shared/store/selectors';
+import { switchAll } from 'rxjs';
+
+import { locs } from './types/locs.enum';
+
 
 interface Styles {
   fontSize: string;
@@ -56,6 +65,7 @@ export interface Monthly {
 
 export interface TEComponentCheckBox {
   display: string;
+  speed?:string;
 }
 
 export interface OfferInterface {
@@ -69,9 +79,48 @@ export interface OfferInterface {
 })
 
 
+
 export class AppComponent implements OnInit,AfterViewInit {
+
+  selectedOption = 'mobile'; // Initial value that matches one of the options
+  options = [
+    { value: 'mobile', label: 'Mobile' },
+    { value: 'home', label: 'Home' },
+    { value: 'work', label: 'Work' }
+  ];
+  onRadioChange2(event: any) {
+    this.selectedOption = event.value;
+  }
+
+  
+
+
+  phoneOptions = [
+    { value: 'Mobile', display:
+     'Mobile', default : false },
+    { value: 'Home', display: 'Home' , default : true }
+  ];
+  phoneType: string = 'Mobile';
+  phoneTypeLoop: string;
+  findPhoneTrue : any;
+
   scrollStrategy: ScrollStrategy;
   dialogRef: any;
+
+  @ViewChild('section2') section2!: ElementRef;
+
+  scrollToSection(sectionId: string) {
+    let element: ElementRef | null = null; 
+    switch (sectionId) {
+      
+      case 'section2':
+        element = this.section2;
+        break;
+      
+    }
+    if(element)
+      element.nativeElement.scrollIntoView({ behavior: 'smooth' });
+  }
 
   @Input() isVisible: boolean = false;
   //@ViewChild("testAddress",{static:false}) testAddress:ElementRef;
@@ -122,7 +171,7 @@ export class AppComponent implements OnInit,AfterViewInit {
   // Example 2
   //ff2$ = from([11,14,15,16]).pipe(filter((item) => item > 10)).subscribe(out => console.log("OUT:",out)); 
 
-html:string = "aween baween maween taween";
+html:string = "aween baween maween taween <a  href=#>link</a>";
 
  htmlString = '<p>This is <strong>safe</strong> HTML content.</p>';
 // outputsafe:string = '';
@@ -143,14 +192,22 @@ html:string = "aween baween maween taween";
 
    offer: OfferInterface = {
     '1-29P': {
-      display:"Internet"
+      display:"Internet",
+      
     }}
     
     isAutoPaySelected$ : Observable<any>;
     isAutoPaySelected : boolean;
     
     selectedValue$: Observable<string>;
-   
+    
+    obj1$ : Observable<any>;
+
+    getInitialText$ : Observable<string>;
+    getInitialText : string;
+    
+
+
   constructor(
     public _testService: TestService, 
     private router: Router,
@@ -159,12 +216,105 @@ html:string = "aween baween maween taween";
     public sanitizer: DomSanitizer,
     public route:ActivatedRoute,
     private store: Store,
+   
     ) 
     {
+
+      console.log("OFFFEERRR:",this.offer);
+      
+      this.obj1$ = of([2,4,6,8,10,12])//timer(2000,2300);
+      let obj2$ = timer(4000,2000);
+
+      const numbers = [1,2,3,4,5];
+      const numRes = numbers.includes(13); // it will return true or false 
+      //console.log(`Number include: ${numRes}`);
+      this.checklocs();
+      
+      const persons = [{
+        name:'Babar',
+        score:6
+      },{
+        name:'Rizwan',
+        score:'54'
+      },{
+        name:'Fakhar',
+        score:'4'
+      }];
+
+      
+
+
+      //const testMapping = new Map();
+      //testMapping: Map<string,string> = new Map();
+      let testMapping: Map<string, {}> = new Map();
+      //testMapping.set("Name","Don");
+      //testMapping.set("Age","40");
+      //console.log("TestMapping:",testMapping);
+
+      const fiftyPlus = persons.some(scoreFifty);
+
+      function scoreFifty(person:any){
+        let name = person.score > 50 ? person.name:'';
+        //console.log(`Fifty plus name: ${name}`);
+        return name;
+      }
+      //console.log("Fifty plus:",fiftyPlus);
+
+      //var numbers:any = {key1:'1', key2:'2', key3:'3'}
+
+      const res = numbers.some(greaterThanFour);
+
+      function greaterThanFour(item:any){
+        return item > 1;
+      }
+      //console.log("Res:",res);
+
+      
+    
+      // combineLatest(obj1$, obj2$).subscribe(
+      //   ([one,two])=> console.log(`One is ${one} and two is ${two}`)
+      // );
+
+      
+      /* Use of ... spread OR rest operator  */
+      /*
+      const address = {add: '45 K'};
+      const city = {city: 'Lahore'};
+      const updateAddress = {...address,...city};
+      console.log("UpdateAddress: ",updateAddress);
+      console.log("Only Address: ",updateAddress.add);
+      */
+      
+      // const personss = null;
+      // const channelKeys = Object.values(personss) || [];
+      // console.log("ChannelKeys:",channelKeys);
+      // console.log("ChannelKeys:",channelKeys[0]);
+      // //console.log("ChannelKeys:",channelKeys[1]);
+
+      //this.findPhoneTrue = this.phoneOptions.find(obj => { return obj.value === 'Home'})
+     
+     
+      //this.findPhoneTrue = this.phoneOptions.find(option => option.default === true);
+      this.findPhoneTrue = this.phoneOptions.find(option => option.value === 'Mobile');
+      //console.log(this.findPhoneTrue);
+     
+     
+      //console.log("findPhoneTrue is:",this.findPhoneTrue.default);
+
+
+
+
+
+
       this.selectedValue$ = this.store.pipe(select(selectSelectedValue));
 
       this.isAutoPaySelected$ = of([]);
-      this.isAutoPaySelected = true;
+      this.isAutoPaySelected = false;
+      this.phoneType = 'Home';
+      this.phoneTypeLoop = 'Home';
+
+      this.getInitialText$ = of("");
+      this.getInitialText = '';
       //cost description = alternateLabel ?alternateLabel.alternateSubLevel : item?.description;
       // const desc = this.monthly?.label 
       // ? ( this.monthly?.quantity > 1 ) ? `${this.monthly.quantity} ${this.monthly.label}`: this.monthly.label  
@@ -179,10 +329,10 @@ html:string = "aween baween maween taween";
         : this.monthly.label
     : this.monthly.description;
       
-      console.log("Description::::::",desc);
+      //console.log("Description::::::",desc);
 
 
-      console.log("isDisplayed constructor:",this.isDisplayed);
+      //console.log("isDisplayed constructor:",this.isDisplayed);
       // sanitizedHtml =  this.sanitizer.bypassSecurityTrustHtml(this.htmlString);
      // debugger
     this.scrollStrategy = this.sso.noop();
@@ -205,20 +355,32 @@ html:string = "aween baween maween taween";
     let innerObservable= of('A','B','C','D')
     srcObservable.pipe(
       mergeMap( val => {
-        console.log('Source value '+val)
-        console.log('starting new observable')
+        //console.log('Source value '+val)
+        //console.log('starting new observable')
         return innerObservable
       })
     )
     .subscribe(ret=> {
-      console.log('Recd ' + ret);
+      //console.log('Recd ' + ret);
     })
 
     //this.openDialogNew();
    
   }
 
-  createComponent(){
+  checklocs(){
+    
+    const locsObj = new Set(locs);
+    console.log("LocsObj-------->>> :",locsObj);
+    if(locsObj.has('/ladddnding')){
+      console.log("Does");
+    }
+    else{
+      console.log("Doesn't");
+    }
+  }
+
+  createComponent(){ 
     this.container.clear;
     this.container.createComponent(CoursesComponent);
   }
@@ -239,11 +401,23 @@ html:string = "aween baween maween taween";
     
     //const inputElement = event.target as HTMLInputElement;
     const value = event.value;
-    console.log("inputElement: ",value);
+    //console.log("inputElement: ",value);
+    this.store.dispatch(setSelectedValue({ value: value }));
   }
   onRadioChange(event: Event): void {
+
+    //this.store.dispatch(setText({value:"This is initial text"|| "Dummy"}));
+    this.store.dispatch(setText({value:"This is initial text"|| "Dummy",helper:{id:100,name:"Asad"}}));
     const inputElement = event.target as HTMLInputElement;
     this.store.dispatch(setSelectedValue({ value: inputElement.value }));
+
+    this.getInitialText$ = this.store.pipe(select(selectSetText));
+    //this.getInitialText$.subscribe(res => console.log("Initial Text:",res));
+    this.getInitialText$.subscribe(res => this.getInitialText = res);
+  }
+
+  radioSelectionLoop(value: string): void {
+    this.phoneTypeLoop = value;
   }
 
   // this.isAutoPaySelected$.pipe(takeUntil(this.destroy$)).subscribe((isAutoPaySelected) => {
@@ -275,7 +449,7 @@ html:string = "aween baween maween taween";
 
     // Subscribe to the afterClosed observable
     this.dialogRef.afterClosed().subscribe((result:string) => {
-      console.log('Dialog closed with result:', result);
+      //console.log('Dialog closed with result:', result);
       // Perform additional actions or handle the result as needed
     });    
   } 
@@ -297,17 +471,17 @@ html:string = "aween baween maween taween";
 
 
 
-  async getValue() { console.log("HEEEEEEEERRREE");
+  async getValue() {
     //try {
       const value = await firstValueFrom(this.textFieldControl.valueChanges);
-      console.log('First value:', value);
+      //console.log('First value:', value);
     //} catch (error) {
     //  console.error('Error getting value:', error);
     //}
   }
 
   continuebtn(){
-    console.log("heree continue btn");
+    //console.log("heree continue btn");
   }
 
   closeModal() {
@@ -318,13 +492,57 @@ html:string = "aween baween maween taween";
     this.headings.push(newHeading);
   }
 
-  getData(data:string){
+  // getData(data:string){
+  // }
+
+  getData(data:any){
+    return of(data+' Video Uploaded').pipe(delay(3000));
+  }
+
+  getDataSlow(data:any){
+    return of(data+' Video Uploaded').pipe(delay(6000));
+  }
+
+  printli(val:any,containerId:any){ console.log("coming here");
+    let el = document.createElement('li');
+    el.innerText = val;
+
+    document.getElementById(containerId)?.appendChild(el)
   }
 
   ngOnInit(): void {
     //this.testAddress.nativeElement.style.color = "red";
     //this.router.navigate(['/Course']);
-    //console.log("isDisplayed ngOnInit:",this.isDisplayed);
+    //console.log("isDisplayed ngOnInit:",this.isDisplayed
+
+    const source = from(['Tech','comedy','News']);
+
+    // source.pipe(
+    //   map(data => this.getData(data))
+    // ).subscribe(res =>  res.subscribe(res2 => {
+    //     console.log("Soruce Res-->:",res2);
+    //     this.print(res2,'elContainer')
+    // }))
+
+    // source.pipe(
+    //   map(data => this.getData(data)),
+    //   switchAll()
+    // ).subscribe(res => {  
+    //     console.log("Soruce Res-->:",res);
+    //     this.printli(res,'elContainer2')
+    //   });
+
+
+    source.pipe(
+      switchMap(data => this.getData(data)
+    )
+     
+    ).subscribe(res => {  
+        //console.log("Soruce Res-->:",res);
+        this.printli(res,'elContainer3')
+      });
+
+
     data$: Observable<number>;
     data$ : of(7,8);
 
@@ -336,9 +554,9 @@ html:string = "aween baween maween taween";
       city:'',
     };
     
-    console.log("before");
+
     for(const key in queryParams){
-      console.log("QP Key:",key);
+      //console.log("QP Key:",key);
       if(queryParams.hasOwnProperty(key))
       {
           // if(processedParams[key]){
@@ -379,19 +597,11 @@ html:string = "aween baween maween taween";
     this.execute();
 
     //console.log("VC: ",this.testAddress);
-    
-    
-
   }
-
 
   async  execute(){
     const source$ = interval(2000);
-
-    
-
     //console.log(`source is: ${source$}`);
-    
     const firstValue =  firstValueFrom(source$);
     //console.log(`First number is: ${firstValue}`);
   }
@@ -415,12 +625,9 @@ html:string = "aween baween maween taween";
     console.log('Updated Value:'+this.eventBindingTitle);
   }
 
-
   printDialog(){
     window.print();
   }
-
-
 }
 
 

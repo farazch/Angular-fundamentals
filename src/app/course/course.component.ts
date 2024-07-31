@@ -48,6 +48,11 @@ export class CourseComponent implements OnInit {
     console.log("inlineStyle:::",this.inlineStyle?.hover);
     //this.hoverUnderline = this.inlineStyle?.hover;
 
+    
+
+    this.store.select('counter');
+
+
     this.store.select('counter').subscribe(data=>{
       this.counterDisplay = data.counter;
     })

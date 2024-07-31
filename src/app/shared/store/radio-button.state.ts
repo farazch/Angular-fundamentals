@@ -3,5 +3,5 @@ export interface RadioButtonState {
   }
   
   export const initialRadioButtonState: RadioButtonState = {
-    selectedValue: ''
+    selectedValue: 'option2'
   };

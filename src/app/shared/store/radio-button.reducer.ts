@@ -19,25 +19,20 @@ import { setSelectedValue,getSelectedValue } from './radio-button.actions';
 import { initialRadioButtonState, RadioButtonState } from './radio-button.state';
 
 // Load initial state from localStorage
-const storedValue = localStorage.getItem('selectedRadioValue');
+//const storedValue = localStorage.getItem('selectedRadioValue');
 
-const initialState: RadioButtonState = {
-  ...initialRadioButtonState,
-  selectedValue: storedValue ? storedValue : initialRadioButtonState.selectedValue
-};
+// const initialState: RadioButtonState = {
+//   ...initialRadioButtonState,
+//   selectedValue: storedValue ? storedValue : initialRadioButtonState.selectedValue
+// };
 
 const _radioButtonReducer = createReducer(
-  initialState,
-  on(setSelectedValue, (state, { value }) => {
-    localStorage.setItem('selectedRadioValue', value);  // Save to localStorage
-    return { ...state, selectedValue: value };
-  }),
-  on(getSelectedValue, (state, { value }) => {
-    localStorage.setItem('selectedRadioValue', value);  // Save to localStorage
-    return { ...state, selectedValue: value };
-  })
-);
-
+    initialRadioButtonState,
+    on(setSelectedValue, (state, { value }) => ({
+      ...state,
+      selectedValue: value
+    }))
+  );
 export function radioButtonReducer(state: any, action: any) {
   return _radioButtonReducer(state, action);
 }

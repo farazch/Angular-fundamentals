@@ -7,7 +7,7 @@ export const authGuard: CanActivateFn = (route, state) => {
 
   let issloggedId = localStorage.getItem("isloggedin");
   console.log("issloggedId::",issloggedId);
-  /*
+ 
   
   if(issloggedId == 'false')
   {
@@ -15,6 +15,6 @@ export const authGuard: CanActivateFn = (route, state) => {
     _router.navigate(['Login']);
     return false;
   }
-  */  
-  return true;
+  else
+    return true;
 };
